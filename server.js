@@ -1,15 +1,18 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.json()); // Important: parse JSON bodies
+app.use(express.static(path.join(__dirname, 'public'))); // Serve frontend
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/hamkra-users', {
+// Connect to MongoDB Atlas (use environment variable)
+const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/hamkra-users';
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
@@ -93,8 +96,13 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+// Catch-all route for frontend routing
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
+// Listen on the Render-assigned port
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`✅ Server running on port ${PORT}`);
 });
