@@ -7,10 +7,10 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Important: parse JSON bodies
+app.use(express.json()); // Parse JSON request bodies
 app.use(express.static(path.join(__dirname, 'public'))); // Serve frontend
 
-// Connect to MongoDB Atlas (use environment variable)
+// MongoDB connection (Atlas)
 const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/hamkra-users';
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
@@ -42,7 +42,6 @@ const Order = mongoose.model('Order', new mongoose.Schema({
 // Signup Route
 app.post('/signup', async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const existing = await User.findOne({ email });
     if (existing) return res.status(400).send('User already exists');
@@ -59,7 +58,6 @@ app.post('/signup', async (req, res) => {
 // Login Route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await User.findOne({ email, password });
     if (user) {
@@ -96,14 +94,13 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
-// Catch-all route for frontend routing
-app.get('*', (req, res) => {
+// Catch-all route for frontend routing (Express v5 compatible)
+app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Listen on the Render-assigned port
+// Listen on Render-assigned port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
-
