@@ -7,10 +7,10 @@ const app = express();
 
 // Middleware
 app.use(cors());
-app.use(express.json()); // Parse JSON request bodies
-app.use(express.static(path.join(__dirname, 'public'))); // Serve frontend
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-// MongoDB connection (Atlas)
+// MongoDB Atlas connection
 const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/hamkra-users';
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
@@ -60,11 +60,8 @@ app.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email, password });
-    if (user) {
-      res.send('Login successful');
-    } else {
-      res.status(401).send('Invalid credentials');
-    }
+    if (user) res.send('Login successful');
+    else res.status(401).send('Invalid credentials');
   } catch (err) {
     console.error('Login error:', err);
     res.status(500).send('Server error');
@@ -94,8 +91,8 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
-// Catch-all route for frontend routing (Express v5 compatible)
-app.get('/*', (req, res) => {
+// Catch-all route (Express v4 compatible)
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
