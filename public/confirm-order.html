@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Confirm Order</title>
+  <link rel="stylesheet" href="style5.css" />
+</head>
+<body>
+  <h2>Confirm Your Order</h2>
+  <div id="order-summary"></div>
+  <button id="final-order">Place Final Order</button>
+  <div id="toast" class="toast">✅ Order placed successfully!</div>
+
+  <script>
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const method = localStorage.getItem('paymentMethod');
+  const bkashTxnId = localStorage.getItem('bkashTxnId');
+  const nagadTxnId = localStorage.getItem('nagadTxnId');
+  const codAddress = localStorage.getItem('codAddress');
+  const codPhone = localStorage.getItem('codPhone');
+
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  let summary = `
+    <p>Payment Method: <strong>${method}</strong></p>
+    <p>Total: ৳${total}</p>
+    <ul>${cart.map(item => `<li>${item.name} × ${item.quantity}</li>`).join('')}</ul>
+  `;
+
+  if (method === 'Bkash' && bkashTxnId) {
+    summary += `<p>Transaction ID: <strong>${bkashTxnId}</strong></p>`;
+  }
+
+  if (method === 'Nagad' && nagadTxnId) {
+    summary += `<p>Transaction ID: <strong>${nagadTxnId}</strong></p>`;
+  }
+
+  if (method === 'Cash on Delivery') {
+    summary += `<p>Delivery Address: <strong>${codAddress}</strong></p>`;
+    summary += `<p>Phone Number: <strong>${codPhone}</strong></p>`;
+  }
+
+  document.getElementById('order-summary').innerHTML = summary;
+
+  document.getElementById('final-order').addEventListener('click', () => {
+    const orderData = {
+      method,
+      cart,
+      total,
+      bkashTxnId,
+      nagadTxnId,
+      codAddress,
+      codPhone
+    };
+
+    fetch('http://localhost:3000/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+
+    setTimeout(() => {
+      localStorage.clear();
+      window.location.href = 'order-success.html';
+    }, 3000);
+  });
+</script>
+</body>
+</html>

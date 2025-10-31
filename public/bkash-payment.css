@@ -1,0 +1,83 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #e0f7fa, #f1f8ff);
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+.bkash-box {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  max-width: 450px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.bkash-box p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.bkash-box h3 {
+  font-size: 24px;
+  margin: 10px 0 20px;
+  color: #d6006e;
+}
+
+input[type="text"] {
+  width: 80%;
+  padding: 12px;
+  font-size: 16px;
+  border: 2px solid #d6006e;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #ff4f9f;
+}
+
+button {
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(to right, #d6006e, #ff4f9f);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+@media (max-width: 480px) {
+  .cod-box, .bkash-box, .nagad-box, .order-summary {
+    width: 90%;
+    padding: 15px;
+  }
+
+  input[type="text"], button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}

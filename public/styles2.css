@@ -1,0 +1,72 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f7fa;
+  padding: 30px;
+  color: #333;
+}
+
+h1 {
+  font-size: 28px;
+  color: #ff6b6b;
+  margin-bottom: 20px;
+}
+
+.wishlist-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.wishlist-item:hover {
+  transform: scale(1.02);
+}
+
+.wishlist-item strong {
+  font-size: 18px;
+  color: #333;
+}
+
+.wishlist-item span {
+  font-size: 16px;
+  color: #666;
+  margin-left: 10px;
+}
+
+.empty-message {
+  font-size: 18px;
+  color: #888;
+  margin-top: 40px;
+}
+.remove-btn {
+  margin-left: 20px;
+  padding: 6px 12px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.remove-btn:hover {
+  background-color: #cc0000;
+}
+@media (max-width: 480px) {
+  .cod-box, .bkash-box, .nagad-box, .order-summary {
+    width: 90%;
+    padding: 15px;
+  }
+
+  input[type="text"], button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}

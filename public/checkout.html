@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="style3.css" />
+  
+</head>
+<body>
+  <h1>🛒 Your Cart</h1>
+  <div id="cart-container"></div>
+  <div id="total"></div>
+  <button id="place-order">Place Order</button>
+  <p class="pp">*You can remove items from wishlist*</p>
+
+  <script>
+  // Merge wishlist into cart
+  const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+  const cart = wishlist.map(item => ({
+    name: item.name,
+    price: item.price,
+    quantity: 1
+  }));
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  // Render cart items
+  const container = document.getElementById('cart-container');
+  const totalDiv = document.getElementById('total');
+  let total = 0;
+
+  if (cart.length === 0) {
+    container.innerHTML = '<p>Your cart is empty.</p>';
+    document.getElementById('place-order').style.display = 'none';
+  } else {
+    cart.forEach(item => {
+      const itemTotal = item.price * item.quantity;
+      total += itemTotal;
+
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.innerHTML = `<strong>${item.name}</strong> x${item.quantity} = ৳${itemTotal}`;
+      container.appendChild(div);
+    });
+
+    totalDiv.innerText = `Total: ৳${total}`;
+  }
+
+  // Place order button → go to payment-options.html
+  document.getElementById('place-order').addEventListener('click', () => {
+    window.location.href = 'payment-options.html';
+  });
+</script>
+</body>
+</html>

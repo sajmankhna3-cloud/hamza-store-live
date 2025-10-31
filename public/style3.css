@@ -1,0 +1,81 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f6f8;
+  padding: 30px;
+  color: #333;
+}
+
+h1 {
+  font-size: 28px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.cart-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: transform 0.2s ease;
+}
+
+.cart-item:hover {
+  transform: scale(1.02);
+}
+
+.cart-item strong {
+  font-size: 18px;
+  color: #333;
+}
+
+.cart-item span {
+  font-size: 16px;
+  color: #666;
+  margin-left: 10px;
+}
+
+#total {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 30px;
+  color: #222;
+}
+
+#place-order {
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#place-order:hover {
+  background-color: #218838;
+}
+
+.empty-message {
+  font-size: 18px;
+  color: #888;
+  margin-top: 40px;
+}
+@media (max-width: 480px) {
+  .cod-box, .bkash-box, .nagad-box, .order-summary {
+    width: 90%;
+    padding: 15px;
+  }
+
+  input[type="text"], button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}

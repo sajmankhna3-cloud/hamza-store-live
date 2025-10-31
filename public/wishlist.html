@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Wishlist</title>
+  <link rel="stylesheet" href="styles2.css" />
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    .wishlist-item { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <h1>🧡 Your Wishlist</h1>
+  <div id="wishlist-container"></div>
+
+  <script>
+    const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+const container = document.getElementById('wishlist-container');
+
+if (wishlist.length === 0) {
+  container.innerHTML = '<p class="empty-message">Your wishlist is empty.</p>';
+} else {
+  wishlist.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.className = 'wishlist-item';
+    div.innerHTML = `
+      <strong>${item.name}</strong><span>৳${item.price}</span>
+      <button class="remove-btn" data-index="${index}">Remove</button>
+    `;
+    container.appendChild(div);
+  });
+
+  // Add remove button logic
+  document.querySelectorAll('.remove-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const index = button.dataset.index;
+      wishlist.splice(index, 1);
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      location.reload(); // refresh to update view
+    });
+  });
+}
+
+  </script>
+</body>
+</html>

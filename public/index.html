@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hamza's Store</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    .auth-modal {
+      display: none;
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #fff8e1;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    #auth-form input,
+    #auth-form select,
+    #auth-form button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    #response {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #2e7d32;
+    }
+
+    .close-btn {
+      background: #ff5252;
+      color: white;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+
+</head>
+<body>
+
+  <header class="hamkra-header">
+    <div class="store-logo">
+      <img src="R.png" alt="Hamza's Store Banner" />
+      <span>Hamza's Store</span>
+    </div>
+
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search here..." />
+    </div>
+
+    <nav class="nav-links">
+      <a href="#" onclick="document.getElementById('auth-modal').style.display='block'">
+        <i class="fas fa-user"></i> Sign In / Register
+      </a>
+
+      <a href="wishlist.html">Wish List</a>
+      <a href="#"><i class="fas fa-balance-scale"></i> Compare</a>
+      <a href="checkout.html">Cart</a>
+
+    </nav>
+  </header>
+  <div id="auth-modal" class="auth-modal">
+    <form id="auth-form">
+      <h2>Sign In / Register</h2>
+      <input type="email" id="email" placeholder="Email" required />
+      <input type="password" id="password" placeholder="Password" required />
+      <select id="auth-mode">
+        <option value="signup">Sign Up</option>
+        <option value="login">Log In</option>
+      </select>
+      <button type="submit">Submit</button>
+      <div id="response"></div>
+      <button type="button" class="close-btn" onclick="document.getElementById('auth-modal').style.display='none'">Close</button>
+    </form>
+  </div>
+  <section class="custom-products">
+    <h2>Items</h2>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <img src="chees puff.jpg" alt="Cheese Puff Snack">
+        <h3>Cheese Puff</h3>
+        <p>Price: ₹20</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Chees Puff" data-price="20">Add to List</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="bd potato.jpg" alt="BD Potato Crackers">
+        <h3>BD Potato Crackers</h3>
+        <p>Price: ₹20</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="BD Potato" data-price="20">Add to List</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="alooz.jpg" alt="Alooz Chips Snack">
+        <h3>Alooz Chips</h3>
+        <p>Price: ₹20</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Alooz" data-price="20">Add to List</button>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <img src="potata.jpg" alt="Potata Crackers">
+        <h3>Potata</h3>
+        <p>Price: ₹25</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Potata" data-price="25">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="Bakers-Butter.jpg" alt="Potata Crackers">
+        <h3>Bakers</h3>
+        <p>Price: ₹50</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Bakers" data-price="50">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="bbq chanachur.jpg" alt="Potata Crackers">
+        <h3>BBQ  Chanachur</h3>
+        <p>Price: ₹10</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="BBQ Chanachur" data-price="10">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="bd chanachur.jpg" alt="Potata Crackers">
+        <h3>BD Chanachur</h3>
+        <p>Price: ₹10</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="BD Chanachur" data-price="10">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="chopstik.jpg" alt="Potata Crackers">
+        <h3>Chopstick</h3>
+        <p>Price: ₹100</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Chopstick" data-price="100">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="cocola noodles.jpg" alt="Potata Crackers">
+        <h3>Cocola Noodles</h3>
+        <p>Price: ₹30</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Cocola Noodles" data-price="30">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="fresh noodles.jpg" alt="Potata Crackers">
+        <h3>Fresh Noodles</h3>
+        <p>Price: ₹70</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Fresh Noodles" data-price="70">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="lexus.jpg" alt="Potata Crackers">
+        <h3>lexus</h3>
+        <p>Price: ₹80</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Lexus" data-price="80">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="mojo.jpg" alt="Potata Crackers">
+        <h3>Mojo</h3>
+        <p>Price: ₹20</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Mojo" data-price="20">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="mr noodles.jpg" alt="Potata Crackers">
+        <h3>Mr Noodles</h3>
+        <p>Price: ₹35</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Mr Noodles" data-price="35">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="nojo.jpg" alt="Potata Crackers">
+        <h3>Nojo</h3>
+        <p>Price: ₹25</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Nojo" data-price="25">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="pran dal.jpg" alt="Potata Crackers">
+        <h3>Pran x2</h3>
+        <p>Price: ₹20</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Pran" data-price="20">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="ramen.jpg" alt="Potata Crackers">
+        <h3>Ramen</h3>
+        <p>Price: ₹100</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Ramen" data-price="100">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="ring chips.jpg" alt="Potata Crackers">
+        <h3>Ring Chips</h3>
+        <p>Price: ₹25</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Ring Chips" data-price="25">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="ruchi chanachur.jpg" alt="Potata Crackers">
+        <h3>Ruchi Chanachur x2</h3>
+        <p>Price: ₹20</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Ruchi Chanachur" data-price="20">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="sojib.jpg" alt="Potata Crackers">
+        <h3>Sojib Noodles</h3>
+        <p>Price: ₹30</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Sojib Noodles" data-price="30">Add to List</button>
+        </div>
+      </div>
+      <div class="product-card">
+        <img src="speed.jpg" alt="Potata Crackers">
+        <h3>Speed</h3>
+        <p>Price: ₹35</p>
+        <div class="product-actions">
+          <button class="buy-btn">Buy Now</button>
+          <button class="add-to-wishlist" data-name="Speed" data-price="35">Add to List</button>
+        </div>
+      </div>
+
+
+    </div> <!-- Close .product-grid -->
+  </section>
+  <script>
+document.getElementById('auth-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const mode = document.getElementById('auth-mode').value;
+
+  const endpoint = mode === 'signup'
+    ? 'http://localhost:3000/signup'
+    : 'http://localhost:3000/login';
+
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+
+    const text = await res.text();
+    document.getElementById('response').innerText = text;
+
+    if (text === 'Login successful') {
+      localStorage.setItem('nickname', email); // You can change this to a real nickname later
+      updateNavBar(email);
+      document.getElementById('auth-modal').style.display = 'none';
+    }
+  } catch (err) {
+    document.getElementById('response').innerText = 'Error connecting to server';
+  }
+});
+
+// Update nav bar after login
+function updateNavBar(nickname) {
+  const navLinks = document.querySelector('.nav-links');
+  const userLink = navLinks.querySelector('a');
+  userLink.innerHTML = `<i class="fas fa-user"></i> ${nickname}`;
+}
+
+// Check login state on page load
+window.addEventListener('DOMContentLoaded', () => {
+  const nickname = localStorage.getItem('nickname');
+  if (nickname) {
+    updateNavBar(nickname);
+  }
+});
+document.getElementById('search-input').addEventListener('input', function(e) {
+  const query = e.target.value.toLowerCase();
+  const products = document.querySelectorAll('.product-card');
+
+  products.forEach(card => {
+    const name = card.querySelector('h3').textContent.toLowerCase();
+    if (name.includes(query)) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+document.querySelectorAll('.add-to-wishlist').forEach(button => {
+  button.addEventListener('click', () => {
+    const name = button.dataset.name;
+    const price = parseFloat(button.dataset.price);
+
+    const exists = wishlist.find(item => item.name === name);
+    if (!exists) {
+      wishlist.push({ name, price });
+      localStorage.setItem('wishlist', JSON.stringify(wishlist));
+      alert(`${name} added to wishlist`);
+    } 
+    else {
+      alert(`${name} is already in your wishlist`);
+
+    }
+  });
+});
+
+</script>
+</body>
+</html>

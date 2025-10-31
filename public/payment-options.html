@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Payment Method</title>
+  <link rel="stylesheet" href="style4.css" />
+</head>
+<body>
+  <h2>Select Payment Method</h2>
+  <div id="cart-summary"></div>
+  <button onclick="selectPayment('Bkash')">Bkash</button>
+<button onclick="selectPayment('Nagad')">Nagad</button>
+<button onclick="selectPayment('Cash on Delivery')">Cash on Delivery</button>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+    document.getElementById('cart-summary').innerHTML = `
+      <p>Total: ৳${total}</p>
+      <ul>${cart.map(item => `<li>${item.name} × ${item.quantity}</li>`).join('')}</ul>
+    `;
+
+    function selectPayment(method) {
+    localStorage.setItem('paymentMethod', method);
+
+    if (method === 'Bkash') {
+      window.location.href = 'bkash-payment.html';
+    } else if (method === 'Nagad') {
+      window.location.href = 'nagad-payment.html';
+    } else if (method === 'Cash on Delivery') {
+  window.location.href = 'cod-payment.html';
+}
+
+  }
+  </script>
+</body>
+</html>

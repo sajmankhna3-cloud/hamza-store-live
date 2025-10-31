@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bkash Payment</title>
+  <link rel="stylesheet" href="bkash-payment.css" />
+</head>
+<body>
+  <h2>Send Payment via Nagad</h2>
+  <div class="bkash-box">
+    <p>Please send ৳<strong id="amount"></strong> to this number:</p>
+    <h3>📱 017XXXXXXXX</h3>
+    <p>After sending, enter your transaction ID below:</p>
+    <input type="text" id="txn-id" placeholder="Enter Transaction ID" />
+    <button onclick="confirmBkash()">Confirm Payment</button>
+  </div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    document.getElementById('amount').innerText = total;
+
+    function confirmBkash() {
+      const txnId = document.getElementById('txn-id').value;
+      if (!txnId) {
+        alert('Please enter your transaction ID');
+        return;
+      }
+      localStorage.setItem('bkashTxnId', txnId);
+      window.location.href = 'confirm-order.html';
+    }
+  </script>
+</body>
+</html>

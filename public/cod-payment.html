@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cash on Delivery</title>
+  <link rel="stylesheet" href="style-cod.css" />
+</head>
+<body>
+  <h2>Cash on Delivery</h2>
+  <div class="cod-box">
+    <p>Please enter your delivery details:</p>
+    <input type="text" id="address" placeholder="Enter your address" />
+    <input type="text" id="phone" placeholder="Enter your phone number" />
+    <button onclick="confirmCOD()">Confirm Order</button>
+  </div>
+
+  <script>
+    function confirmCOD() {
+      const address = document.getElementById('address').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!address || !phone) {
+        alert('Please enter both address and phone number');
+        return;
+      }
+
+      localStorage.setItem('codAddress', address);
+      localStorage.setItem('codPhone', phone);
+      window.location.href = 'confirm-order.html';
+    }
+  </script>
+</body>
+</html>

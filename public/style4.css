@@ -1,0 +1,96 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom right, #f0f4f8, #dfe9f3);
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
+
+h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #444;
+}
+
+#cart-summary {
+  background: #fff;
+  border-radius: 8px;
+  padding: 15px;
+  max-width: 400px;
+  margin: 0 auto 30px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#cart-summary p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#cart-summary ul {
+  list-style: none;
+  padding: 0;
+}
+
+#cart-summary li {
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 250px;
+  margin: 10px auto;
+  padding: 12px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+button img {
+  height: 24px;
+  width: auto;
+}
+
+/* Specific styles */
+button:nth-of-type(1) {
+  background: linear-gradient(to right, #d6006e, #ff4f9f);
+  color: white;
+}
+
+button:nth-of-type(2) {
+  background: linear-gradient(to right, #ff6a00, #ffb347);
+  color: white;
+}
+
+button:nth-of-type(3) {
+  background: linear-gradient(to right, #007bff, #66b2ff);
+  color: white;
+}
+@media (max-width: 480px) {
+  .cod-box, .bkash-box, .nagad-box, .order-summary {
+    width: 90%;
+    padding: 15px;
+  }
+
+  input[type="text"], button {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+}
