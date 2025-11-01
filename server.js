@@ -12,14 +12,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // MongoDB Atlas connection
 const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/hamkra-users';
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
 
-mongoose.connection.once('open', () => {
-  console.log('✅ Connected to MongoDB');
-});
+mongoose.connect(mongoUri)
+  .then(() => console.log('✅ MongoDB connected successfully!'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
+
 
 // User Schema
 const User = mongoose.model('User', new mongoose.Schema({
@@ -101,5 +98,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+
 
 
