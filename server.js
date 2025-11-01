@@ -10,13 +10,19 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// MongoDB Atlas connection
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/hamkra-users';
+// MongoDB connection
+const mongoUri = process.env.MONGO_URI;
+if (!mongoUri) {
+  console.error('❌ MONGO_URI not set in environment variables!');
+  process.exit(1);
+}
 
-mongoose.connect(mongoUri)
-  .then(() => console.log('✅ MongoDB connected successfully!'))
-  .catch(err => console.error('❌ MongoDB connection error:', err));
-
+mongoose.connect(mongoUri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log('✅ MongoDB connected successfully!'))
+.catch(err => console.error('❌ MongoDB connection error:', err));
 
 // User Schema
 const User = mongoose.model('User', new mongoose.Schema({
@@ -36,8 +42,8 @@ const Order = mongoose.model('Order', new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 }));
 
-// Signup Route
-app.post('/signup', async (req, res) => {
+// Routes
+app.post('/api/signup', async (req, res) => {
   const { email, password } = req.body;
   try {
     const existing = await User.findOne({ email });
@@ -52,8 +58,7 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-// Login Route
-app.post('/login', async (req, res) => {
+app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email, password });
@@ -65,7 +70,6 @@ app.post('/login', async (req, res) => {
   }
 });
 
-// Save Order Route
 app.post('/api/orders', async (req, res) => {
   try {
     const order = new Order(req.body);
@@ -77,7 +81,6 @@ app.post('/api/orders', async (req, res) => {
   }
 });
 
-// View Orders Route (Admin)
 app.get('/api/orders', async (req, res) => {
   try {
     const orders = await Order.find().sort({ createdAt: -1 });
@@ -88,16 +91,11 @@ app.get('/api/orders', async (req, res) => {
   }
 });
 
-// Catch-all route (Express v4 compatible)
+// Fallback for frontend
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-// Listen on Render-assigned port
+// Listen
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
-
-
-
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
