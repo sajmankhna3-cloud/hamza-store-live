@@ -43,55 +43,32 @@ const Order = mongoose.model('Order', new mongoose.Schema({
 }));
 
 // Routes
-import { API_BASE } from "./config";
-
-async function signup(email, password) {
+app.post('/api/signup', async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const res = await fetch(`${API_BASE}/signup`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    });
+    const existing = await User.findOne({ email });
+    if (existing) return res.status(400).send('User already exists');
 
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || "Signup failed");
-    }
-
-    const data = await res.text();
-    console.log("Signup successful:", data);
-    return data;
+    const user = new User({ email, password });
+    await user.save();
+    res.send('Signup successful');
   } catch (err) {
-    console.error("Signup error:", err.message);
-    alert("Error connecting to server: " + err.message);
+    console.error('Signup error:', err);
+    res.status(500).send('Server error');
   }
-}
+});
 
-
-import { API_BASE } from "./config";
-
-async function login(email, password) {
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const res = await fetch(`${API_BASE}/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    });
-
-    if (!res.ok) {
-      const text = await res.text();
-      throw new Error(text || "Login failed");
-    }
-
-    const data = await res.text();
-    console.log("Login successful:", data);
-    return data;
+    const user = await User.findOne({ email, password });
+    if (user) res.send('Login successful');
+    else res.status(401).send('Invalid credentials');
   } catch (err) {
-    console.error("Login error:", err.message);
-    alert("Error connecting to server: " + err.message);
+    console.error('Login error:', err);
+    res.status(500).send('Server error');
   }
-}
-
+});
 
 app.get('/api/orders', async (req, res) => {
   try {
@@ -111,4 +88,3 @@ app.get('*', (req, res) => {
 // Listen
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
-
