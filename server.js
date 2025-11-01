@@ -43,43 +43,55 @@ const Order = mongoose.model('Order', new mongoose.Schema({
 }));
 
 // Routes
-app.post('/api/signup', async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const existing = await User.findOne({ email });
-    if (existing) return res.status(400).send('User already exists');
+import { API_BASE } from "./config";
 
-    const user = new User({ email, password });
-    await user.save();
-    res.send('Signup successful');
-  } catch (err) {
-    console.error('Signup error:', err);
-    res.status(500).send('Server error');
-  }
-});
-
-app.post('/api/login', async (req, res) => {
-  const { email, password } = req.body;
+async function signup(email, password) {
   try {
-    const user = await User.findOne({ email, password });
-    if (user) res.send('Login successful');
-    else res.status(401).send('Invalid credentials');
-  } catch (err) {
-    console.error('Login error:', err);
-    res.status(500).send('Server error');
-  }
-});
+    const res = await fetch(`${API_BASE}/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
 
-app.post('/api/orders', async (req, res) => {
-  try {
-    const order = new Order(req.body);
-    await order.save();
-    res.status(200).send({ message: 'Order saved' });
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || "Signup failed");
+    }
+
+    const data = await res.text();
+    console.log("Signup successful:", data);
+    return data;
   } catch (err) {
-    console.error('Order save error:', err);
-    res.status(500).send('Server error');
+    console.error("Signup error:", err.message);
+    alert("Error connecting to server: " + err.message);
   }
-});
+}
+
+
+import { API_BASE } from "./config";
+
+async function login(email, password) {
+  try {
+    const res = await fetch(`${API_BASE}/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+
+    if (!res.ok) {
+      const text = await res.text();
+      throw new Error(text || "Login failed");
+    }
+
+    const data = await res.text();
+    console.log("Login successful:", data);
+    return data;
+  } catch (err) {
+    console.error("Login error:", err.message);
+    alert("Error connecting to server: " + err.message);
+  }
+}
+
 
 app.get('/api/orders', async (req, res) => {
   try {
@@ -99,3 +111,4 @@ app.get('*', (req, res) => {
 // Listen
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+
